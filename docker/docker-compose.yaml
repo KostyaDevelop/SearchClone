@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  nginx-user:
+    build:
+      context: ./nginx
+    container_name: nginx-user
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - php-user
+    volumes:
+      - ../:${API_PROJECT_DIR}
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+
+  php-user:
+    container_name: php-user
+    build:
+      context: ./php
+    volumes:
+      - ../:${API_PROJECT_DIR}
+    depends_on:
+      - db-user
+    expose:
+      - "9000"
+    environment:
+      DATABASE_URL: postgres://${DB_USERNAME}:${DB_PASSWORD}@db-user/${DB_DATABASE}
+      PHP_XDEBUG_MODE: ${PHP_XDEBUG_MODE}
+      PHP_XDEBUG_CLIENT_PORT: ${PHP_XDEBUG_CLIENT_PORT}
+      PHP_XDEBUG_CLIENT_HOST: ${PHP_XDEBUG_CLIENT_HOST}
+      PHP_IDE_CONFIG: "serverName=${PHPSTORM_SERVER_NAME}"
+      APP_ENV: ${APP_ENV}
+      APP_SECRET: ${APP_SECRET}
+
+  db-user:
+    container_name: db-user
+    build:
+      context: ./postgresql
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+    ports:
+      - "5432:5432"
+
+volumes:
+  db-data:
