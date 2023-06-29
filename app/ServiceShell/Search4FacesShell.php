@@ -3,6 +3,7 @@
 namespace App\ServiceShell;
 
 use App\Helpers\JsonHelper;
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class Search4FacesShell
@@ -30,7 +31,7 @@ class Search4FacesShell
     /**
      * @param array $params
      * @param string $methodName
-     * @return array
+     * @throws Exception
      */
     public function send(array $params, string $methodName)
     {
@@ -41,14 +42,18 @@ class Search4FacesShell
 
         $tokenApi = env('SEARCH4FACES_API_KEY');
 
-        $response = Http::timeout(90)
-            ->withHeaders([
-                'Content-Type' => $this->contentType,
-                'x-authorization-token' => $tokenApi
-            ])->post(
-                $this->urlRequest,
-                $requestParams
-            )->body();
+        try {
+            $response = Http::timeout(90)
+                ->withHeaders([
+                    'Content-Type' => $this->contentType,
+                    'x-authorization-token' => $tokenApi
+                ])->post(
+                    $this->urlRequest,
+                    $requestParams
+                )->body();
+        } catch (Exception $e){
+            throw new Exception($e);
+        }
 
         return json_decode($response);
     }

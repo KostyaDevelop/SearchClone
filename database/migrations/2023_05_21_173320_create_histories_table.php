@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')
+                ->on('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->integer('set_id');
+            $table->string('name');
+            $table->string('score');
+            $table->string('image_url');
+            $table->string('profile_url');
             $table->timestamps();
         });
     }

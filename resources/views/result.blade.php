@@ -23,12 +23,14 @@
                 <div class="result-photos">
                     <div class="row">
                         @foreach($facesResult as $faceResult)
-                            <div class="col-md-2">
-                                <a target="_blank" href="{{$faceResult->profile}}">
-                                    <img class="result-photos-img" src="{{$faceResult->source}}">
-                                    <span>{{$faceResult->first_name . ' ' . $faceResult->last_name}}</span>
-                                    <span>Процент совпадения{{$faceResult->score}}</span>
-                                </a>
+                            <div class="col-md-3">
+                                <div class="result-photo">
+                                    <a target="_blank" href="{{$faceResult->profile}}">
+                                        <img class="result-photos-img" src="{{$faceResult->source}}">
+                                        <div class="result-photos-name">{{$faceResult->first_name . ' ' . $faceResult->last_name}}</div>
+                                        <div class="result-photos-score">Процент совпадения: {{round($faceResult->score)}}%</div>
+                                    </a>
+                                </div>
                             </div>
                         @endforeach
                     </div>

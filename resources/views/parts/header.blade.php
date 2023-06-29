@@ -35,18 +35,34 @@
                             <div class="header-menu-item">
                                 <a href="{{route('tariffs')}}">Тарифы</a>
                             </div>
-                            <div class="header-menu-item">
-                                <a href="{{route('history')}}">История поисков</a>
-                            </div>
-                            <div class="header-menu-item">
-                                <a href="{{route('search')}}">Найти клона</a>
-                            </div>
+                            @auth
+                                <div class="header-menu-item">
+                                    <a href="{{route('history')}}">История поисков</a>
+                                </div>
+                                <div class="header-menu-item">
+                                    <a href="{{route('search')}}">Найти клона</a>
+                                </div>
+                            @endauth
                             <div class="header-menu-item">
                                 <a href="{{route('about')}}">О нас</a>
                             </div>
-                            <button class="header-menu-login">
-                                Войти
-                            </button>
+                            @auth
+                                <div class="header-menu-item">
+                                    <div class="button-personal-cabinet">
+                                        <a href="{{route('personal_cabinet')}}"></a>
+                                        <div class="button-personal-cabinet-logout">
+                                            <a href="{{route('auth_logout')}}">
+                                                Выйти
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endauth
+                            @guest
+                                <button class="header-menu-login">
+                                    Войти
+                                </button>
+                            @endguest
                         </div>
                     </div>
                     <div class="col-md-1">

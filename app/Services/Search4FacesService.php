@@ -18,7 +18,7 @@ class Search4FacesService
      * @param array $faceInfo
      * @return Collection
      */
-    public function searchFace(array $faceInfo, string $socialName): Collection
+    public function searchFace(array $faceInfo): Collection
     {
         $faceInfo['face'] = $faceInfo['faces'];
         unset($faceInfo['faces']);
@@ -42,7 +42,7 @@ class Search4FacesService
 
     /**
      * @param string $imageHash
-     * @return array
+     * @return array|null
      */
     public function detectFaces(string $imageHash): array
     {

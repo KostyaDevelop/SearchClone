@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Managers\Search4FacesManager;
+use App\Managers\HistoryManager;
 use App\Managers\TariffManager;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Request;
 
 class PageController
 {
+    private HistoryManager $historyManager;
+
+    public function __construct()
+    {
+        $this->historyManager = app(HistoryManager::class);
+    }
     /**
      * @return View
      */
@@ -46,7 +52,66 @@ class PageController
      */
     public function getHistoryPage(): View
     {
-        return view('history');
+        $user = auth()->user();
+
+        if ($user){
+            $resultsHistories = $this->historyManager->getHistoryGroupByUserId(
+                $user->getAuthIdentifier()
+            );
+
+            return view('history',
+                [
+                    'resultsHistories' => $resultsHistories
+                ]
+            );
+        } else {
+            return view('main');
+        }
+    }
+
+    /**
+     * @param int $setId
+     * @return View
+     */
+    public function getHistoryOnePage(int $setId): View
+    {
+        $user = auth()->user();
+
+        if ($user){
+            $resultsHistory = $this->historyManager->getHistoryBySetId($setId);
+
+            return view('history_one',
+                [
+                    'resultsHistory' => $resultsHistory
+                ]
+            );
+        } else {
+            return view('main');
+        }
+    }
+
+    /**
+     * @return View
+     */
+    public function getAuthPage(): View
+    {
+        return view('auth');
+    }
+
+    /**
+     * @return View
+     */
+    public function getRegistrationPage(): View
+    {
+        return view('registration');
+    }
+
+    /**
+     * @return View
+     */
+    public function getPersonalCabinetPage(): View
+    {
+        return view('personal_cabinet');
     }
 
     /**
@@ -73,6 +138,6 @@ class PageController
             $request->files->get('file')
         );
 
-        return app(Search4FacesManager::class)->getImagesByFace($imageHash);
+        return app(HistoryManager::class)->getImagesByFace($imageHash);
     }
 }

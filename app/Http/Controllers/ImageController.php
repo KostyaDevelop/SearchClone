@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Managers\HistoryManager;
 use App\Managers\Search4FacesManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -18,14 +19,13 @@ class ImageController extends Controller
     public function getDetectFaces(Request $request): View
     {
         $image = $request->files->get('file');
-        $socialName = $request->get('soc');
 
         $imageHash = base64_encode(file_get_contents($image));
 
-        $facesResult = $this->search4FacesManager->getImagesByFace($imageHash, $socialName);
+        $facesResult = $this->search4FacesManager->getImagesByFace($imageHash);
 
         return view('result',[
-            'facesResult' => $facesResult['profiles']
+            'facesResult' => $facesResult
         ]);
     }
 }

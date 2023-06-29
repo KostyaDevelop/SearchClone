@@ -55,13 +55,16 @@
     <div class="row">
         <div class="col-md-2">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 short-height">
             <div class="about-info-test_request">
                 <div class="about-info-test_request-title">
                     Тестовый запрос
                 </div>
                 <div class="about-info-test_request-text">
-                    У вас есть возможность попробовать ресурс с помощью 2-х тестовых запросов в Начальном Тарифе
+                    У вас есть возможность попробовать ресурс с помощью 2-х тестовых запросов в
+                    <a class="a-border-white" href="{{route('tariffs')}}">
+                        Начальном Тарифе
+                    </a>
                 </div>
                 <div class="about-info-test_request-button">
                     <a href="{{route('registration')}}">
