@@ -19,6 +19,7 @@ Route::get('/history', [PageController::class, 'getHistoryPage'])->name('history
 Route::get('/history-one-{set_id}', [PageController::class, 'getHistoryOnePage'])->name('history_one');
 Route::get('/tariffs', [PageController::class, 'getTariffsPage'])->name('tariffs');
 Route::get('/auth', [PageController::class, 'getAuthPage'])->name('auth');
+Route::get('/login', [PageController::class, 'getLoginPage'])->name('login');
 Route::get('/registration', [PageController::class, 'getRegistrationPage'])->name('registration');
 Route::get('/personal-cabinet', [PageController::class, 'getPersonalCabinetPage'])->name('personal_cabinet');
 

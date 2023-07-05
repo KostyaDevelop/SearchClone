@@ -117,6 +117,14 @@ class PageController
     /**
      * @return View
      */
+    public function getLoginPage(): View
+    {
+        return view('login');
+    }
+
+    /**
+     * @return View
+     */
     public function getTariffsPage(): View
     {
         $tariffs = app(TariffManager::class)->getTariffs();

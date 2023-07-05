@@ -56,7 +56,7 @@
                 <div class="registration-block-form-inner-label-email">
                     E-mail
                 </div>
-                <input type="email"  name="email" class="auth-block-form-input_email" placeholder="Введите ваш e-mail">
+                <input required type="email"  name="email" class="auth-block-form-input_email" placeholder="Введите ваш e-mail">
                 <div class="registration-block-form-inner-label-password">
                     <div class="registration-block-form-inner-label-password-text">
                         Password
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="password" name="password" class="auth-block-form-input_password" placeholder="Введите ваш пароль">
+                <input required type="password" name="password" class="auth-block-form-input_password" placeholder="Введите ваш пароль">
                 <div class="registration-block-form-inner-label-password-desc">
                     Используйте 8 или более символов с сочетанием букв, цифр и символов
                 </div>
@@ -81,8 +81,6 @@
                         Условиями использования.
                     </a>
                 </div>
-{{--                <input type="hidden" name="captcha_token_v2">--}}
-{{--                <input type="hidden" name="captcha_token_v3">--}}
                 <div id="captcha"></div>
                 <button type="submit" class="registration-block-registration">
                     Зарегистрироваться
@@ -92,9 +90,20 @@
         <div class="registration-block-reg">
             У вас уже есть аккаунт? &nbsp;
             <div class="a-border-black">
-                Авторизоваться
+                <a href="{{route('login')}}">
+                    Авторизоваться
+                </a>
             </div>
         </div>
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </div>
 </div>
 @include('parts.footer')

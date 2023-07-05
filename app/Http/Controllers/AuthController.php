@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Request;
 
 class AuthController
@@ -14,12 +15,24 @@ class AuthController
 
     public function login(Request $request)
     {
-        $credentials['email'] = $request->get('email');
-        $credentials['password'] = $request->get('password');
+        $validator = $request->validate([
+            'email' => [
+                'required',
+                Rule::exists('users', 'email')
+            ]
+        ]);
 
-//        Auth::validate($credentials);
+        if ($validator->fails()){
+            return redirect('/login')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         Auth::login(
-            Auth::getProvider()->retrieveByCredentials($credentials)
+            Auth::getProvider()->retrieveByCredentials([
+                $request->get('email'),
+                $request->get('password')
+            ])
         );
 
         return redirect('/personal-cabinet');
@@ -31,25 +44,23 @@ class AuthController
             'email' => 'required|regex:/^.+\@.+\..+$/',
             'password' => [
                 'required',
-                'string',
                 'min:8',
                 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-,.*+_])/'
             ]
         ]);
 
-        dd($validator);
         if ($validator->fails()){
             return redirect('registration')
                 ->withErrors($validator)
                 ->withInput();
         }
-//        $user = User::create($request->validated());
-        $data['email'] = $request->get('email');
-        $data['password'] = $request->get('password');
 
-        $user = User::create($data);
+        $credentials['email'] = $request->get('email');
+        $credentials['password'] = $request->get('password');
 
-        auth()->login($user);
+        auth()->login(
+            User::create($credentials)
+        );
 
         return route('personal_cabinet');
     }

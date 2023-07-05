@@ -18,10 +18,10 @@ $(document).ready(function(){
     });
 
 
-    $('.registration-block-reg .a-border-black').click(function(){
-        $('.auth-alert').css('display', 'flex');
-        $('body,html').scrollTop(0);
-    });
+    // $('.registration-block-reg .a-border-black').click(function(){
+    //     $('.auth-alert').css('display', 'flex');
+    //     $('body,html').scrollTop(0);
+    // });
 
     $('.registration-block-form-inner-label-password-hide').click(function(){
         switch($('.auth-block-form-input_password').attr('type')) {

@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Tariff;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +13,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+         Tariff::create([
+             'name' => 'Начальный',
+             'price' => 0,
+             'time' => 1,
+             'count_search' => 1,
+             'max_issuance' => 0
+         ]);
+        Tariff::create([
+            'name' => 'Стандарт',
+            'price' => 1000,
+            'time' => 2,
+            'count_search' => 15,
+            'max_issuance' => 0
+        ]);
+        Tariff::create([
+            'name' => 'Премиум',
+            'price' => 5000,
+            'time' => 6,
+            'count_search' => 100,
+            'max_issuance' => 0
+        ]);
     }
 }

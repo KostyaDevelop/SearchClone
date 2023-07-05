@@ -1540,3 +1540,17 @@ header {
     margin-top: 20px;
 }
 
+.login-block{
+    height: 600px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 100px 5% 50px 5%;
+    background: #FFFFFF;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}

@@ -6,8 +6,8 @@
     </div>
     <form enctype="multipart/form-data" method="POST" class="auth-alert-form" action="{{route('auth_login')}}" >
         @csrf
-        <input type="email" name="email" class="auth-alert-input-email" placeholder="Введите ваш электронный адрес">
-        <input type="password" name="password" class="auth-alert-input-password" placeholder="Введите ваш пароль">
+        <input required type="email" name="email" class="auth-alert-input-email" placeholder="Введите ваш электронный адрес">
+        <input required type="password" name="password" class="auth-alert-input-password" placeholder="Введите ваш пароль">
         <button type="submit" class="auth-alert-auth">Войти</button>
     </form>
     <div class="auth-alert-line">

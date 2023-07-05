@@ -6,8 +6,8 @@ services:
       context: ./nginx
     container_name: nginx-user
     ports:
-      - "80:80"
-      - "443:443"
+      - "8888:80"
+#      - "443:443"
     depends_on:
       - php-user
     volumes:
